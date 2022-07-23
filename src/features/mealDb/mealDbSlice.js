@@ -2,7 +2,7 @@ import axios from "axios";
 
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 
-export const fetchMeals = createAsyncThunk("meals/fetchMeals",async()=>{
+export const fetchMeals = createAsyncThunk("meals/fetchMeals", async()=>{
     const res = await axios.get('https://www.themealdb.com/api/json/v1/1/categories.php');
     return res.data
 })
@@ -23,10 +23,10 @@ export const mealDbSlice = createSlice({
     state.meals = action.payload
     state.error = null
  })
- builder.addCase(fetchMeals.pending,(state, action) =>{
+ builder.addCase(fetchMeals.rejected,(state, action) =>{
     state.isLoading = false;
-    state.error = action.error.message;
     state.meals = []
+    state.error = action.error.message;
  })
     }
 })
